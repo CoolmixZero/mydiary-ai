@@ -2,7 +2,8 @@ const express = require("express");
 const Database = require("./database.cjs");
 
 const app = express();
-const port = 3000;
+app.use(express.static("src/templates"));
+const port = 4000;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -20,7 +21,15 @@ db.connect()
   });
 
 app.get("/", (req, res) => {
-  res.send("Hello, World!");
+  const str =
+    "D:\\GitHub repos\\mydiary-ai\\src\\templates\\js\\src\\templates\\index.html";
+  console.log(str.substring(0, str.indexOf("mydiary-ai") + 10));
+  res.sendFile(
+    `${str.substring(
+      0,
+      str.indexOf("mydiary-ai") + 10
+    )}/src/templates/index.html`
+  );
 });
 
 app.get("/tasks", async (req, res) => {
@@ -56,6 +65,21 @@ app.delete("/tasks/:id", async (req, res) => {
     console.error("Error removing task:", err);
     res.status(500).json({ error: "Internal server error" });
   }
+});
+
+app.post("/submit-form", async (req, res) => {
+  const { username, email, password } = req.body;
+  try {
+    await db.insertUser(username, email, password);
+    res.status(200).send("Form submitted successfully");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("An error occurred");
+  }
+});
+
+app.listen(3000, () => {
+  console.log("Server is listening on port 3000");
 });
 
 module.exports = app;

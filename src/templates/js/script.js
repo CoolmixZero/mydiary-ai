@@ -1,17 +1,31 @@
-let taskList = [];
-
 async function addTask() {
   let newTask = document.getElementById("newTask").value;
   if (newTask !== "") {
-    taskList.push(newTask);
+    try {
+      await fetch("/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ task: newTask }),
+      });
+      await displayTasks();
+    } catch (err) {
+      console.error("Error adding task:", err);
+    }
     document.getElementById("newTask").value = "";
-    await displayTasks();
   }
 }
 
 async function removeTask(index) {
-  taskList.splice(index, 1);
-  await displayTasks();
+  try {
+    const taskListElement = document.getElementById("taskList");
+    const taskId = taskListElement.childNodes[index].dataset.taskId;
+    await fetch(`/tasks/${taskId}`, { method: "DELETE" });
+    await displayTasks();
+  } catch (err) {
+    console.error("Error removing task:", err);
+  }
 }
 
 async function displayTasks() {
