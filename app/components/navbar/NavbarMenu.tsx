@@ -22,6 +22,7 @@ const NavbarMenu = () => {
           flex-row
           items-center
           justify-between
+          space-x-2
       "
     >
       <div
