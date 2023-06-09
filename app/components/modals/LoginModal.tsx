@@ -1,24 +1,25 @@
 "use client";
 
-import axios from "axios";
 import { useCallback, useState } from "react";
-import { signIn } from "next-auth/react";
-import { AiFillGithub } from "react-icons/ai";
-import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-hot-toast";
+import { signIn } from "next-auth/react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import useLoginModal from "@/app/hooks/useLoginModal";
+import { FcGoogle } from "react-icons/fc";
+import { AiFillGithub } from "react-icons/ai";
+import { useRouter } from "next/navigation";
 
-import useRegisterModal from "../../hooks/useRegisterModal";
+import useRegisterModal from "@/app/hooks/useRegisterModal";
+import useLoginModal from "@/app/hooks/useLoginModal";
 
 import Modal from "./Modal";
 import Input from "../inputs/Input";
 import Heading from "../Heading";
 import Button from "../Button";
 
-const RegisterModal = () => {
-  const registerModal = useRegisterModal();
+const LoginModal = () => {
+  const router = useRouter();
   const loginModal = useLoginModal();
+  const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -27,7 +28,6 @@ const RegisterModal = () => {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      name: "",
       email: "",
       password: "",
     },
@@ -36,40 +36,35 @@ const RegisterModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
-    axios
-      .post("/api/register", data)
-      .then(() => {
-        toast.success("Registered!");
-        registerModal.onClose();
-        loginModal.onOpen();
-      })
-      .catch((error) => {
-        toast.error(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    signIn("credentials", {
+      ...data,
+      redirect: false,
+    }).then((callback) => {
+      setIsLoading(false);
+
+      if (callback?.ok) {
+        toast.success("Logged in");
+        router.refresh();
+        loginModal.onClose();
+      }
+
+      if (callback?.error) {
+        toast.error(callback.error);
+      }
+    });
   };
 
   const onToggle = useCallback(() => {
-    registerModal.onClose();
-    loginModal.onOpen();
-  }, [registerModal, loginModal]);
+    loginModal.onClose();
+    registerModal.onOpen();
+  }, [loginModal, registerModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Welcome to Diary.ai" subtitle="Create an account!" />
+      <Heading title="Welcome back" subtitle="Login to your account!" />
       <Input
         id="email"
         label="Email"
-        disabled={isLoading}
-        register={register}
-        errors={errors}
-        required
-      />
-      <Input
-        id="name"
-        label="Username"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -104,23 +99,19 @@ const RegisterModal = () => {
       />
       <div
         className="
-          text-neutral-500
-          text-center
-          mt-4
-          font-light
-        "
+      text-neutral-500 text-center mt-4 font-light"
       >
         <p>
-          Already have an account?{" "}
+          First time using Diary.ai?{" "}
           <span
             onClick={onToggle}
             className="
               text-neutral-800
-              cursor-pointer
+              cursor-pointer 
               hover:underline
             "
           >
-            Log in
+            Create an account
           </span>
         </p>
       </div>
@@ -130,10 +121,10 @@ const RegisterModal = () => {
   return (
     <Modal
       disabled={isLoading}
-      isOpen={registerModal.isOpen}
-      title="Register"
-      actionLabel="Register"
-      onClose={registerModal.onClose}
+      isOpen={loginModal.isOpen}
+      title="Login"
+      actionLabel="Login"
+      onClose={loginModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
       footer={footerContent}
@@ -141,4 +132,4 @@ const RegisterModal = () => {
   );
 };
 
-export default RegisterModal;
+export default LoginModal;

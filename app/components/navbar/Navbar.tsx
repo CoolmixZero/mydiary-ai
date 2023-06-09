@@ -1,11 +1,17 @@
 "use client";
 
+import { SafeUser } from "@/app/types";
+
 import Container from "../Container";
 import Logo from "./Logo";
 import NavbarMenu from "./NavbarMenu";
 import UserMenu from "./UserMenu";
 
-const Navbar = () => {
+interface NavbarProps {
+  currentUser?: SafeUser | null;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   return (
     <div className="fixed w-full bg-white ">
       <div
@@ -27,7 +33,7 @@ const Navbar = () => {
           >
             <Logo />
             <NavbarMenu />
-            <UserMenu />
+            <UserMenu currentUser={currentUser} />
           </div>
         </Container>
       </div>
