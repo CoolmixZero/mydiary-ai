@@ -6,6 +6,7 @@ import RegisterModal from "./components/modals/RegisterModal";
 import ToasterProvider from "./providers/ToasterProvider";
 import LoginModal from "./components/modals/LoginModal";
 import getCurrentUser from "./actions/getCurrentUser";
+import Footer from "./components/footer/Footer";
 
 export const metadata = {
   title: "Diary.ai",
@@ -31,8 +32,9 @@ export default async function RootLayout({
           <LoginModal />
           <RegisterModal />
           <Navbar currentUser={currentUser} />
+          {children}
+          <Footer />
         </ClientOnly>
-        {children}
       </body>
     </html>
   );
