@@ -1,5 +1,5 @@
 import getCurrentUser from "./actions/getCurrentUser";
-import Landing from "./components/landing/Landing";
+import Page from "./components/Page";
 import { SafeUser } from "./types";
 
 interface HomeProps {
@@ -9,5 +9,5 @@ interface HomeProps {
 export default async function Home() {
   const currentUser = await getCurrentUser();
 
-  return <Landing currentUser={currentUser} />;
+  return <Page currentUser={currentUser} />;
 }

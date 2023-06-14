@@ -12,6 +12,7 @@ interface InputProps {
   required?: boolean;
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors;
+  onEnter?: () => void;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -23,7 +24,14 @@ const Input: React.FC<InputProps> = ({
   register,
   required,
   errors,
+  onEnter,
 }) => {
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" && onEnter) {
+      onEnter();
+    }
+  };
+
   return (
     <div className="w-full relative">
       {formatPrice && (
@@ -43,6 +51,7 @@ const Input: React.FC<InputProps> = ({
         {...register(id, { required })}
         placeholder=" "
         type={type}
+        onKeyDown={handleKeyPress}
         className={`
           peer
           w-full

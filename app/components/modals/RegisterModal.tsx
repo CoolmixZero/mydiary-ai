@@ -83,6 +83,7 @@ const RegisterModal = () => {
         register={register}
         errors={errors}
         required
+        onEnter={handleSubmit(onSubmit)}
       />
     </div>
   );

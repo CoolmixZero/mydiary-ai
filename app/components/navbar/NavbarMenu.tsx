@@ -1,7 +1,5 @@
 "use client";
 
-import { BiSearch } from "react-icons/bi";
-
 const NavbarMenu = () => {
   return (
     <div

@@ -23,12 +23,20 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     setIsOpen((value) => !value);
   }, []);
 
+  const handleUpgrade = useCallback(() => {
+    if (!currentUser) {
+      return loginModal.onOpen();
+    }
+
+    // Open Upgrade Modal
+  }, [currentUser, loginModal]);
+
   if (!currentUser) {
     return (
       <div className="relative">
         <div className="flex flex-row items-center gap-3">
           <div
-            onClick={() => {}}
+            onClick={handleUpgrade}
             className="
                       hidden
                       md:block
@@ -49,15 +57,15 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
             className="
                       hidden
                       md:block
-                      text-md
+                      text-sm
+                      md:text-md
                       font-semibold
                       py-3
                       px-4
                       rounded-full
                       text-white
                       bg-blue-400
-                      hover:bg-blue-200
-                      hover:text-slate-700
+                      hover:bg-blue-500 
                       transition
                       cursor-pointer
                   "
