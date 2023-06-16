@@ -1,12 +1,12 @@
-import { Inter } from "next/font/google";
 import "./globals.css";
+import { Inter } from "next/font/google";
+import ToasterProvider from "./providers/ToasterProvider";
 import ClientOnly from "./components/ClientOnly";
+import getCurrentUser from "./actions/getCurrentUser";
 import Navbar from "./components/navbar/Navbar";
 import RegisterModal from "./components/modals/RegisterModal";
-import ToasterProvider from "./providers/ToasterProvider";
+import UpgradeModal from "./components/modals/UpgradeModal";
 import LoginModal from "./components/modals/LoginModal";
-import getCurrentUser from "./actions/getCurrentUser";
-import Footer from "./components/footer/Footer";
 
 export const metadata = {
   title: "Diary.ai",
@@ -29,11 +29,12 @@ export default async function RootLayout({
       <body className={font.className}>
         <ClientOnly>
           <ToasterProvider />
+          <UpgradeModal />
           <LoginModal />
           <RegisterModal />
           <Navbar currentUser={currentUser} />
         </ClientOnly>
-        <div className="pb-20 pt-28">{children}</div>
+        <div className="pb-16 pt-20">{children}</div>
       </body>
     </html>
   );

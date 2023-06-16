@@ -1,17 +1,33 @@
 "use client";
 
+import moment from "moment";
+import Sidebar from "./sidebar/Sidebar";
+
 const Today = () => {
+  const currentDate = new Date();
+  const date = `${currentDate.getDate()}`;
+  const month = moment(currentDate).format("MMMM");
+  const weekDay = moment(currentDate).format("dddd");
+
   return (
-    <div className="bottom-100 max-w-6xl mx-auto px-4 sm:px-6">
-      {/* Hero content */}
-      <div className="pt-24 pb-8 md:pt-32 md:pb-12">
-        {/* Section header */}
-        <div className="pb-12 md:pb-16">
-          <h1
-            className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4"
-            data-aos="zoom-y-out"
-          ></h1>
-        </div>
+    <div className="relative bg-white z-10 h-screen w-fit px-60 py-10 overflow-hidden ">
+      <div className="flex flex-row items-start space-x-3 ">
+        <h1
+          className="text-xl md:text-2xl font-extrabold leading-tighter tracking-tighter mb-1"
+          data-aos="zoom-y-out"
+        >
+          Today
+        </h1>
+        <p
+          className="py-2 text-[0.8rem] text-gray-400/70 mb-1 font-extralight leading-tighter tracking-tighter"
+          data-aos="zoom-y-out"
+        >
+          {weekDay} {date} {month}
+        </p>
+      </div>
+      <hr className="w-full bg-gray-100/10 line-width shadow-lg" />
+      <div className="relative bg-red-400 flex flex-row items-start space-x-3">
+        HELLO
       </div>
     </div>
   );

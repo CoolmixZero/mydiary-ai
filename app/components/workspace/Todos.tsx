@@ -1,6 +1,8 @@
 "use client";
 
-const Todo = () => {
+import { DragDropContext } from "react-beautiful-dnd";
+
+const Todos = () => {
   return (
     <div className="bottom-100 max-w-6xl mx-auto px-4 sm:px-6">
       {/* Hero content */}
@@ -17,4 +19,4 @@ const Todo = () => {
   );
 };
 
-export default Todo;
+export default Todos;

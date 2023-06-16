@@ -8,6 +8,7 @@ import { useCallback, useState } from "react";
 import MenuItem from "./MenuItem";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
+import useUpgradeModal from "@/app/hooks/useUpgradeModal";
 import { signOut } from "next-auth/react";
 
 interface UserMenuProps {
@@ -17,6 +18,7 @@ interface UserMenuProps {
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const upgradeModal = useUpgradeModal();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = useCallback(() => {
@@ -28,7 +30,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
       return loginModal.onOpen();
     }
 
-    // Open Upgrade Modal
+    upgradeModal.onOpen();
   }, [currentUser, loginModal]);
 
   if (!currentUser) {
@@ -81,7 +83,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
         <div
-          onClick={() => {}}
+          onClick={handleUpgrade}
           className="
                     hidden
                     md:block
@@ -137,7 +139,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
             text-sm
           "
         >
-          <div className="flex flex-col cursor-pointer">
+          <div className="flex z-10 flex-col cursor-pointer">
             {currentUser ? (
               <>
                 <div

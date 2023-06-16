@@ -3,7 +3,6 @@
 import { SafeUser } from "@/app/types";
 import ClientOnly from "../ClientOnly";
 import Sidebar from "./sidebar/Sidebar";
-import Todo from "./Todo";
 import Today from "./Today";
 
 interface WorkspaceProps {

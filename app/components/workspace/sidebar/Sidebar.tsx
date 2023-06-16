@@ -28,44 +28,45 @@ const Sidebar = () => {
       className={`
         fixed
         h-screen
-        bg-transparent
-        top-24
-        md:top-36
+        bg-white
+        border-r
         left-0
         flex
         flex-col
         w-fit
+        md:w-[10rem]
         m-0
         items-start
         duration-500
-        ease-out
-        `}
+        ease-out 
+        z-20
+        ${isOpen ? "translate-x-0" : "-translate-x-48"}
+      `}
     >
-      <div
+      <BsArrowBarRight
         onClick={toggleOpen}
         className={`
-                p-2
-                md:py-1
-                md:px-2
-                text-xl
-                md:text-2xl
-                flex
-                flex-row
-                items-center
-                gap-3
-                rounded-full
-                cursor-pointer
-                hover:shadow-md
-                transition-all
-                transform-gpu
-                duration-500
-                ${isOpen ? "rotate-180" : "rotate-360"}
-            `}
-      >
-        {/* {isOpen ? <BsArrowBarLeft /> : <BsArrowBarRight />} */}
-        <BsArrowBarRight />
-      </div>
-
+                  relative
+                  p-1
+                  md:py-1
+                  md:px-2
+                  text-3xl
+                  md:text-5xl
+                  cursor-pointer
+                  bg-transparent
+                  text-blue-500
+                  transition
+                  w-full
+                  transform-gpu
+                  duration-500
+                  ease
+                  ${
+                    isOpen
+                      ? "translate-x-0 rotate-180"
+                      : "translate-x-48 rotate-360"
+                  }
+              `}
+      />
       <div
         className={`
             shadow-md
@@ -73,11 +74,11 @@ const Sidebar = () => {
             left-0
             top-10
             text-sm
-            duration-500
-            ${isOpen ? "translate-x-0" : "-translate-x-32"}
+            duration-300
+            w-full
           `}
       >
-        <div className={`flex flex-col cursor-pointer`}>
+        <div className="flex flex-col cursor-pointer">
           <>
             <hr />
             {sidebarItems.map((item, index) => (
@@ -87,7 +88,6 @@ const Sidebar = () => {
                 onClick={item.onClick}
                 tab={item.tab}
                 currentTab={currentTab}
-                isOpen={isOpen}
               />
             ))}
           </>

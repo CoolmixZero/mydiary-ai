@@ -1,5 +1,7 @@
 "use client";
 
+import { BiSearch } from "react-icons/bi";
+
 const NavbarMenu = () => {
   return (
     <div
@@ -74,16 +76,6 @@ const NavbarMenu = () => {
           >
             Search
           </div>
-          <div
-            className="
-                p-2
-                bg-blue-400
-                rounded-full
-                text-white
-            "
-          >
-            <BiSearch size={18} />
-          </div>
         </div>*/}
       <div
         className="
@@ -105,6 +97,24 @@ const NavbarMenu = () => {
         "
       >
         Templates
+      </div>
+      <div
+        className="
+                text-sm 
+                pl-2
+                pr-2
+                p-2
+                py-2
+                rounded-full
+                shadow-sm
+                hover:shadow-md
+                transition
+                cursor-pointer
+                bg-blue-400
+                text-white
+            "
+      >
+        <BiSearch size={18} />
       </div>
     </div>
   );

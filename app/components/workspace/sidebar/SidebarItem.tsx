@@ -5,7 +5,6 @@ interface SidebarItemProps {
   label: string;
   tab: number;
   currentTab: number;
-  isOpen: boolean;
 }
 
 const Sidebar: React.FC<SidebarItemProps> = ({
@@ -13,7 +12,6 @@ const Sidebar: React.FC<SidebarItemProps> = ({
   label,
   tab,
   currentTab,
-  isOpen,
 }) => {
   return (
     <div
@@ -22,10 +20,7 @@ const Sidebar: React.FC<SidebarItemProps> = ({
         px-4
         py-3
         hover:bg-neutral-300
-        duration-300
-        ease-in-out
         font-semibold
-        ${!isOpen && "scale-0"}
         ${
           tab !== currentTab
             ? "bg-white shadow-md border-gray-200 hover:shadow-lg"
