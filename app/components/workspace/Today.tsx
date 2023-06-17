@@ -1,7 +1,7 @@
 "use client";
 
 import moment from "moment";
-import Sidebar from "./sidebar/Sidebar";
+import Todos from "./Todos";
 
 const Today = () => {
   const currentDate = new Date();
@@ -26,8 +26,8 @@ const Today = () => {
         </p>
       </div>
       <hr className="w-full bg-gray-100/10 line-width shadow-lg" />
-      <div className="relative bg-red-400 flex flex-row items-start space-x-3">
-        HELLO
+      <div className="relative bg-red-400 flex flex-col items-start space-x-3 w-full">
+        <Todos />
       </div>
     </div>
   );
