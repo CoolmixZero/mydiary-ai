@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
-import { BsArrowBarRight } from "react-icons/bs";
+import { BsArrowBarLeft, BsArrowBarRight } from "react-icons/bs";
 import SidebarItem from "./SidebarItem";
 
 const Sidebar = () => {
@@ -28,19 +28,17 @@ const Sidebar = () => {
       className={`
         fixed
         h-screen
-        bg-white
-        border-r
+        bg-gradient-to-r from-blue-500/30 via-teal-400/30 to-transparent
         left-0
         flex
         flex-col
+        items-end
         w-fit
         md:w-[10rem]
-        m-0
-        items-start
         duration-500
         ease-out 
         z-20
-        ${isOpen ? "translate-x-0" : "-translate-x-48"}
+        ${isOpen ? "translate-x-0" : "-translate-x-24"}
       `}
     >
       <BsArrowBarRight
@@ -51,36 +49,51 @@ const Sidebar = () => {
                   md:py-1
                   md:px-2
                   text-3xl
-                  md:text-5xl
+                  md:text-4xl
                   cursor-pointer
                   bg-transparent
-                  text-blue-500
-                  transition
-                  w-full
-                  transform-gpu
-                  duration-500
-                  ease
+                  text-end
+                  w-fit
+                  duration-1000
                   ${
                     isOpen
-                      ? "translate-x-0 rotate-180"
-                      : "translate-x-48 rotate-360"
+                      ? "hidden translate-x-0"
+                      : "translate-x-10"
+                  }
+              `}
+      />
+      <BsArrowBarLeft
+        onClick={toggleOpen}
+        className={`
+                  relative
+                  p-1
+                  md:py-1
+                  md:px-2
+                  text-3xl
+                  md:text-4xl
+                  cursor-pointer
+                  bg-transparent
+                  text-end
+                  w-fit
+                  duration-0
+                  ${
+                    isOpen
+                      ? ""
+                      : "hidden"
                   }
               `}
       />
       <div
         className={`
-            shadow-md
             overflow-hidden
             left-0
-            top-10
             text-sm
             duration-300
             w-full
           `}
       >
-        <div className="flex flex-col cursor-pointer">
+        <div className="flex flex-col cursor-pointer ">
           <>
-            <hr />
             {sidebarItems.map((item, index) => (
               <SidebarItem
                 key={index}

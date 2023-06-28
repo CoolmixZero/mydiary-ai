@@ -14,20 +14,28 @@ const Sidebar: React.FC<SidebarItemProps> = ({
   currentTab,
 }) => {
   return (
-    <div
-      onClick={onClick}
-      className={`
-        px-4
-        py-3
-        hover:bg-neutral-300
-        font-semibold
-        ${
-          tab !== currentTab
-            ? "bg-white shadow-md border-gray-200 hover:shadow-lg"
-            : "bg-neutral-200 text-black border-transparent"
-        }`}
-    >
-      {label}
+    <div 
+      className="
+          transition-all 
+          delay-75 
+          h-full 
+          w-full 
+          bg-transparent
+        ">
+      <div
+        onClick={onClick}
+        className={`
+          px-4
+          py-3
+          font-semibold
+          ${
+            tab !== currentTab
+              ? "bg-transparent"
+              : "bg-gradient-to-r from-blue-500/40 via-teal-400/40 to-transparent"
+          }`}
+      >
+        {label}
+      </div>
     </div>
   );
 };
