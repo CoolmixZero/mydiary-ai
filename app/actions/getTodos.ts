@@ -1,5 +1,3 @@
-"use server"
-
 import prisma from "@/app/libs/prismadb";
 
 import getCurrentUser from "./getCurrentUser";
@@ -29,7 +27,7 @@ export default async function getTodos() {
       ...todo,
       createdAt: todo.createdAt.toString(),
     }));
-    console.log(safeTodos);
+    
     return safeTodos;
   } catch (error: any) {
     throw new Error(error);

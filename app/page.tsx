@@ -11,8 +11,6 @@ export default async function Home() {
   const todo = await getTodos();
   const currentUser = await getCurrentUser();
 
-
-
   if (!currentUser) {
     return (
       <ClientOnly>
