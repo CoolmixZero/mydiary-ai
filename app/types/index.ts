@@ -1,4 +1,8 @@
-import { User } from "@prisma/client";
+import { Todo, User } from "@prisma/client";
+
+export type SafeTodo = Omit<Todo, "createdAt"> & {
+  createdAt: string;
+};
 
 export type SafeUser = Omit<
   User,
